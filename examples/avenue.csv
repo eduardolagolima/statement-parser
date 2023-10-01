@@ -1,0 +1,5 @@
+Data;Hora;Liquidação;Descrição;Valor (U$);Saldo da conta (U$)
+01/01/2023;00:00;01/01/2023;Câmbio Padrão : R$999.99;999.99;0.00
+01/01/2023;00:00;01/01/2023;Compra de 999 XYZ a $ 999.99;-999.99;0.00
+01/01/2023;00:00;01/01/2023;Dividendos XYZ. COMPANY XYZ INC;999.99;0.00
+01/01/2023;00:00;01/01/2023;Retenção Impostos sobre Dividendos XYZ. COMPANY XYZ INC;-999.99;0.00
