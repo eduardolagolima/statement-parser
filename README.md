@@ -1,9 +1,15 @@
 # statement-parser
 
-```sh
-# avenue
-node avenue/parser.js
+### Como instalar?
 
-# clear
-node clear/parser.js
+```sh
+npm install
+npm i -g .
+```
+
+### Exemplos:
+
+```sh
+statement-parser --broker=avenue examples/avenue.csv
+statement-parser --broker=clear examples/clear.csv
 ```
