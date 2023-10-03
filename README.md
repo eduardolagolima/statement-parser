@@ -1,5 +1,7 @@
 # statement-parser
 
+CLI para parsear os extratos da Avenue e Clear.
+
 ### Como instalar?
 
 ```sh
