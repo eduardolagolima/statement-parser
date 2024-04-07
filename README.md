@@ -12,6 +12,6 @@ npm i -g .
 ### Exemplos:
 
 ```sh
-statement-parser --broker=avenue examples/avenue.csv
-statement-parser --broker=clear examples/clear.csv
+statement-parser --template=avenue examples/avenue.csv
+statement-parser --template=clear examples/clear.csv
 ```

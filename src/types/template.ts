@@ -3,7 +3,7 @@ type SearchAndReplace = {
   replace: string;
 };
 
-export type Config = {
+export type Template = {
   columns: string[];
   currency: "Real" | "Dólar";
   outputColumns: string[];

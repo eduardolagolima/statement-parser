@@ -1,11 +1,11 @@
-import { Config } from "./types/config";
+import { Template } from "./types/template";
 import { EOL } from "node:os";
 
 export class Parser {
   private rows: string[] = [];
   private removedRows: string[] = [];
 
-  public constructor(private fileContent: string, private config: Config) {
+  public constructor(private fileContent: string, private template: Template) {
     this.fileContent = fileContent.trim();
     this.rows = this.fileContent.split(EOL);
   }
@@ -20,7 +20,7 @@ export class Parser {
 
   public removeRows() {
     this.rows = this.rows.filter((row) => {
-      const mustRemove = row.match(this.config.valuesToRemove.join("|"));
+      const mustRemove = row.match(this.template.valuesToRemove.join("|"));
 
       if (mustRemove) {
         this.removedRows.push(row);
@@ -34,7 +34,7 @@ export class Parser {
 
   public replaceValues() {
     this.rows = this.rows.map((row) => {
-      this.config.valuesToReplace.forEach(({ search, replace }) => {
+      this.template.valuesToReplace.forEach(({ search, replace }) => {
         row = row.replace(new RegExp(search, "g"), replace);
       });
 
@@ -45,13 +45,13 @@ export class Parser {
   }
 
   public reorderColumns() {
-    const pattern = this.config.columns
+    const pattern = this.template.columns
       .reduce<string[]>((pattern, column) => {
         return [...pattern, `(?<${column}>.+)`];
       }, [])
       .join(";");
 
-    const replaceValue = this.config.outputColumns
+    const replaceValue = this.template.outputColumns
       .reduce<string[]>((replaceValue, outputColumn) => {
         return [...replaceValue, outputColumn];
       }, [])

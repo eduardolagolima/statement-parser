@@ -1,4 +1,4 @@
-import { Config } from "../types/config";
+import { Template } from "../types/template";
 
 enum Columns {
   dataOperacao = "dataOperacao",
@@ -10,10 +10,10 @@ enum Columns {
   saldoFinal = "saldoFinal",
 }
 
-const currency: Config["currency"] = "Dólar";
-const type: Config["type"] = "?";
+const currency: Template["currency"] = "Dólar";
+const type: Template["type"] = "?";
 
-export const avenue: Config = {
+export const avenue: Template = {
   columns: Object.values(Columns),
   currency: "Dólar",
   outputColumns: [
