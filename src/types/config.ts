@@ -1,6 +1,6 @@
 type SearchAndReplace = {
-  searchValue: string;
-  replaceValue: string;
+  search: string;
+  replace: string;
 };
 
 export type Config = {
