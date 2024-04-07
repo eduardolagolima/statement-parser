@@ -1,24 +1,24 @@
 import minimist from "minimist";
 
-import { configs } from "./configs";
+import { templates } from "./templates";
+
+type Templates = keyof typeof templates;
 
 type Args = {
   _: [string];
-  broker: Brokers;
+  template: Templates;
 };
 
-type Brokers = keyof typeof configs;
-
-const validateBroker = (broker: Brokers) => {
-  if (broker === undefined) {
-    throw new Error("Corretora não informada como argumento: --broker");
+const validateTemplate = (template: Templates) => {
+  if (template === undefined) {
+    throw new Error("Template não informado como argumento: --template");
   }
 
-  const brokers = Object.keys(configs);
+  const templateNames = Object.keys(templates);
 
-  if (brokers.includes(broker) === false) {
+  if (templateNames.includes(template) === false) {
     throw new Error(
-      `Corretora inválida, opções válidas: ${brokers.join(" | ")}`
+      `Template inválido, opções válidas: ${templateNames.join(" | ")}`
     );
   }
 };
@@ -32,14 +32,14 @@ const validateFilePath = (filePath: string) => {
 export const getArgs = () => {
   const {
     _: [filePath],
-    broker,
+    template,
   } = minimist<Args>(process.argv.slice(2));
 
-  validateBroker(broker);
+  validateTemplate(template);
   validateFilePath(filePath);
 
   return {
-    broker,
+    template,
     filePath,
   };
 };
