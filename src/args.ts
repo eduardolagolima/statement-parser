@@ -1,4 +1,5 @@
 import minimist from "minimist";
+import { EOL } from "node:os";
 
 import { templates } from "./templates";
 
@@ -18,7 +19,9 @@ const validateTemplate = (template: Templates) => {
 
   if (templateNames.includes(template) === false) {
     throw new Error(
-      `Template inválido, opções válidas: ${templateNames.join(" | ")}`
+      `Template inválido, opções válidas: ${EOL}- ${templateNames.join(
+        `${EOL}- `
+      )}`
     );
   }
 };
