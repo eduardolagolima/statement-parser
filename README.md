@@ -14,3 +14,7 @@ npm i -g .
 ```sh
 statement-parser --template=avenue examples/avenue.csv
 ```
+
+### Como exportar os extratos?
+
+**Avenue**: Relatórios > Avenue US > Conta de investimentos > Download do CSV BR
