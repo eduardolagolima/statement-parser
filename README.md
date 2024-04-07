@@ -1,6 +1,6 @@
 # statement-parser
 
-CLI para parsear os extratos da Avenue e Clear.
+CLI para fazer o parse dos extratos da Avenue.
 
 ### Como instalar?
 
@@ -13,5 +13,4 @@ npm i -g .
 
 ```sh
 statement-parser --template=avenue examples/avenue.csv
-statement-parser --template=clear examples/clear.csv
 ```
