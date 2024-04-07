@@ -28,15 +28,15 @@ export const clear: Config = {
   valuesToRemove: ["NOTA", "TED"],
   valuesToReplace: [
     // corrige nomenclaturas
-    { searchValue: "JUROS S/CAPITAL", replaceValue: "JCP" },
-    { searchValue: "RENDIMENTO", replaceValue: "Rendimentos" },
-    { searchValue: "DIVIDENDOS", replaceValue: "Dividendos" },
-    { searchValue: "CRÉDITO FRAÇÕES", replaceValue: "Crédito de frações" },
+    { search: "JUROS S/CAPITAL", replace: "JCP" },
+    { search: "RENDIMENTO", replace: "Rendimentos" },
+    { search: "DIVIDENDOS", replace: "Dividendos" },
+    { search: "CRÉDITO FRAÇÕES", replace: "Crédito de frações" },
 
     // remove informação desnecessária dos FIIS
-    { searchValue: "PAPEL", replaceValue: "" },
+    { search: "PAPEL", replace: "" },
 
     // remove a quantidade e substitui por um ponto e vírgula
-    { searchValue: `${space}+\\d*${space}+`, replaceValue: ";" },
+    { search: `${space}+\\d*${space}+`, replace: ";" },
   ],
 };

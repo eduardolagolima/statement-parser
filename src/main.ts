@@ -8,21 +8,14 @@ import { getArgs } from "./args";
   try {
     const { broker, filePath } = getArgs();
     const config = configs[broker];
-    const input = await fs.readFile(filePath, { encoding: "utf8" });
-    const output = new Parser(input)
+    const fileContent = await fs.readFile(filePath, { encoding: "utf8" });
+    const output = new Parser(fileContent, config)
       .removeHeader()
-      .removeLines(config.valuesToRemove)
-      .replaceValues(config.valuesToReplace)
-      .reorderColumns(config.columns, config.outputColumns)
-      .generateOutput();
+      .removeRows()
+      .replaceValues()
+      .reorderColumns()
+      .parse();
 
-    console.log("");
-    console.log("Entrada:");
-    console.log("");
-    console.log(input);
-    console.log("");
-    console.log("Saída:");
-    console.log("");
     console.log(output);
   } catch (error: unknown) {
     console.log((error as Error).message);

@@ -25,18 +25,26 @@ export const avenue: Config = {
     `$<${Columns.valor}>`,
   ],
   type: "?",
-  valuesToRemove: ["Câmbio Padrão", "Compra de"],
+  valuesToRemove: [
+    "Câmbio Padrão",
+    "Compra de",
+    "Estorno Impostos sobre Dividendos",
+  ],
   valuesToReplace: [
     // corrige nomenclaturas
-    {
-      searchValue: "Retenção Impostos sobre Dividendos",
-      replaceValue: "Impostos",
-    },
+    { search: "Retenção Impostos sobre Dividendos", replace: "Impostos;" },
+    { search: "Dividendos", replace: "Dividendos;" },
 
-    // simplifica o nome do ativo
-    { searchValue: "\\s([A-Z]+)\\.[A-Z\\s&*-]+", replaceValue: ";$1" },
+    // remove espaços
+    { search: "\\s+", replace: "" },
+
+    // remove asteriscos do nome das ADRs
+    { search: "\\*+", replace: "" },
+
+    // extrai o código do ativo
+    { search: "([A-Z]+)\\.[A-Z&-]+", replace: "$1" },
 
     // troca todos os pontos por vírgula
-    { searchValue: "\\.", replaceValue: "," },
+    { search: "\\.", replace: "," },
   ],
 };

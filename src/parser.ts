@@ -1,57 +1,95 @@
 import { Config } from "./types/config";
-
-const LINE_BREAK = "(?:\r\n|\n|\r)";
+import { EOL } from "node:os";
 
 export class Parser {
-  constructor(private input: string) {}
+  private rows: string[] = [];
+  private removedRows: string[] = [];
+
+  public constructor(private fileContent: string, private config: Config) {
+    this.fileContent = fileContent.trim();
+    this.rows = this.fileContent.split(EOL);
+  }
 
   public removeHeader() {
-    this.input = this.input.replace(new RegExp(`^.+${LINE_BREAK}`), "");
+    this.removedRows.push(this.rows[0]);
+
+    this.rows.shift();
 
     return this;
   }
 
-  public removeLines(valuesToRemove: Config["valuesToRemove"]) {
-    const pattern = `.+(?:${valuesToRemove.join("|")}).+${LINE_BREAK}`;
+  public removeRows() {
+    this.rows = this.rows.filter((row) => {
+      const mustRemove = row.match(this.config.valuesToRemove.join("|"));
 
-    this.input = this.input.replace(new RegExp(pattern, "g"), "");
+      if (mustRemove) {
+        this.removedRows.push(row);
+      }
 
-    return this;
-  }
-
-  public replaceValues(valuesToReplace: Config["valuesToReplace"]) {
-    valuesToReplace.forEach(({ searchValue, replaceValue }) => {
-      this.input = this.input.replace(
-        new RegExp(searchValue, "g"),
-        replaceValue
-      );
+      return !mustRemove;
     });
 
     return this;
   }
 
-  public reorderColumns(
-    columns: Config["columns"],
-    outputColumns: Config["outputColumns"]
-  ) {
-    const pattern = columns
+  public replaceValues() {
+    this.rows = this.rows.map((row) => {
+      this.config.valuesToReplace.forEach(({ search, replace }) => {
+        row = row.replace(new RegExp(search, "g"), replace);
+      });
+
+      return row;
+    });
+
+    return this;
+  }
+
+  public reorderColumns() {
+    const pattern = this.config.columns
       .reduce<string[]>((pattern, column) => {
         return [...pattern, `(?<${column}>.+)`];
       }, [])
       .join(";");
 
-    const replaceValue = outputColumns
+    const replaceValue = this.config.outputColumns
       .reduce<string[]>((replaceValue, outputColumn) => {
         return [...replaceValue, outputColumn];
       }, [])
       .join(";");
 
-    this.input = this.input.replace(RegExp(pattern, "g"), replaceValue);
+    this.rows = this.rows.map((row) => {
+      return row.replace(RegExp(pattern, "g"), replaceValue);
+    });
 
     return this;
   }
 
-  public generateOutput() {
-    return this.input;
+  public parse() {
+    const initialRowsAmount = this.fileContent.split(EOL).length;
+    const removedRowsAmount = this.removedRows.length;
+    const consideredRowsAmount = this.rows.length;
+    const balanceAmount =
+      initialRowsAmount - removedRowsAmount - consideredRowsAmount;
+
+    return `
+Entrada:
+
+${this.fileContent}
+
+Linhas removidas:
+
+${this.removedRows.join(EOL)}
+
+Linhas consideradas:
+
+${this.rows.join(EOL)}
+
+Resumo das quantidades de linhas:
+
+Entrada: ${initialRowsAmount}
+Linhas removidas: ${removedRowsAmount}
+Linhas consideradas: ${consideredRowsAmount}
+Conferência: ${balanceAmount}
+    `;
   }
 }
