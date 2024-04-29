@@ -9,10 +9,13 @@ npm install
 npm i -g .
 ```
 
-### Exemplos:
+### Exemplos de como usar:
 
 ```sh
 statement-parser --template=avenue examples/avenue.csv
+```
+
+```sh
 statement-parser --template=b3 examples/b3.csv
 ```
 
