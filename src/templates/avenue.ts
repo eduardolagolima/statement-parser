@@ -1,6 +1,6 @@
 import { Template } from "../types/template";
 
-enum Columns {
+enum InputColumns {
   dataOperacao = "dataOperacao",
   hora = "hora",
   dataLiquidacao = "dataLiquidacao",
@@ -14,15 +14,15 @@ const currency: Template["currency"] = "Dólar";
 const type: Template["type"] = "?";
 
 export const avenue: Template = {
-  columns: Object.values(Columns),
   currency,
+  inputColumns: Object.values(InputColumns),
   outputColumns: [
-    `$<${Columns.dataOperacao}>`,
-    `$<${Columns.ativo}>`,
-    `$<${Columns.evento}>`,
+    `$<${InputColumns.dataOperacao}>`,
+    `$<${InputColumns.ativo}>`,
+    `$<${InputColumns.evento}>`,
     type,
     currency,
-    `$<${Columns.valor}>`,
+    `$<${InputColumns.valor}>`,
   ],
   type,
   valuesToRemove: [
@@ -32,8 +32,8 @@ export const avenue: Template = {
   ],
   valuesToReplace: [
     // corrige nomenclaturas
-    { search: "Retenção Impostos sobre Dividendos", replace: "Impostos;" },
-    { search: "Dividendos", replace: "Dividendos;" },
+    { search: /Retenção Impostos sobre Dividendos/, replace: "Impostos;" },
+    { search: /Dividendos/, replace: "Dividendos;" },
 
     // remove espaços
     { search: /\s+/, replace: "" },

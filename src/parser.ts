@@ -63,20 +63,20 @@ export class Parser {
   }
 
   public reorderColumns() {
-    const pattern = this.template.columns
-      .reduce<string[]>((pattern, column) => {
-        return [...pattern, `(?<${column}>.+)`];
+    const search = this.template.inputColumns
+      .reduce<string[]>((search, inputColumn) => {
+        return [...search, `(?<${inputColumn}>.+)`];
       }, [])
       .join(";");
 
-    const replaceValue = this.template.outputColumns
-      .reduce<string[]>((replaceValue, outputColumn) => {
-        return [...replaceValue, outputColumn];
+    const replace = this.template.outputColumns
+      .reduce<string[]>((replace, outputColumn) => {
+        return [...replace, outputColumn];
       }, [])
       .join(";");
 
     this.rows = this.rows.map((row) => {
-      return row.replace(new RegExp(pattern, "g"), replaceValue);
+      return row.replace(new RegExp(search, "g"), replace);
     });
 
     return this;
