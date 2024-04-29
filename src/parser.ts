@@ -5,9 +5,27 @@ export class Parser {
   private rows: string[] = [];
   private removedRows: string[] = [];
 
-  public constructor(private fileContent: string, private template: Template) {
-    this.fileContent = fileContent.trim();
+  public constructor(private fileContent: string, private template: Template) {}
+
+  public standardizeFile() {
+    this.fileContent = this.fileContent
+      .trim()
+      // troca todas as vírgulas por ponto e vírgula
+      .replace(/,/g, ";")
+      // remove a formatação dos valores
+      .replace(/R\$/g, "")
+      // troca tudo que tiver mais de 1 espaço para apenas 1 espaço
+      .replace(/ {2,}/g, " ")
+      // remove pontos e vírgula dentro de aspas duplas, também remove as aspas duplas
+      .replace(/".+"/g, (match) => match.replace(/"|;/g, ""));
+
+    return this;
+  }
+
+  public generateRows() {
     this.rows = this.fileContent.split(EOL);
+
+    return this;
   }
 
   public removeHeader() {
@@ -58,7 +76,7 @@ export class Parser {
       .join(";");
 
     this.rows = this.rows.map((row) => {
-      return row.replace(RegExp(pattern, "g"), replaceValue);
+      return row.replace(new RegExp(pattern, "g"), replaceValue);
     });
 
     return this;
