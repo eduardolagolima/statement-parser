@@ -1,6 +1,6 @@
 import { Template } from "../types/template";
 
-enum Columns {
+enum InputColumns {
   ativo = "ativo",
   dataPagamento = "dataPagamento",
   evento = "evento",
@@ -14,15 +14,15 @@ const currency: Template["currency"] = "Real";
 const type: Template["type"] = "?";
 
 export const b3: Template = {
-  columns: Object.values(Columns),
   currency,
+  inputColumns: Object.values(InputColumns),
   outputColumns: [
-    `$<${Columns.dataPagamento}>`,
-    `$<${Columns.ativo}>`,
-    `$<${Columns.evento}>`,
+    `$<${InputColumns.dataPagamento}>`,
+    `$<${InputColumns.ativo}>`,
+    `$<${InputColumns.evento}>`,
     type,
     currency,
-    `$<${Columns.valorLiquido}>`,
+    `$<${InputColumns.valorLiquido}>`,
   ],
   type,
   valuesToRemove: [
@@ -31,9 +31,9 @@ export const b3: Template = {
   ],
   valuesToReplace: [
     // corrige nomenclaturas
-    { search: "Juros Sobre Capital Próprio", replace: "JCP" },
-    { search: "Dividendo", replace: "Dividendos" },
-    { search: "Rendimento", replace: "Rendimentos" },
+    { search: /Juros Sobre Capital Próprio/, replace: "JCP" },
+    { search: /Dividendo/, replace: "Dividendos" },
+    { search: /Rendimento/, replace: "Rendimentos" },
 
     // remove espaços
     { search: /\s+/, replace: "" },

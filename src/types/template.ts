@@ -1,11 +1,11 @@
 type SearchAndReplace = {
-  search: string | RegExp;
+  search: RegExp;
   replace: string;
 };
 
 export type Template = {
-  columns: string[];
   currency: "Real" | "Dólar";
+  inputColumns: string[];
   outputColumns: string[];
   type: string;
   valuesToRemove: string[];
