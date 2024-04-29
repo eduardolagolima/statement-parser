@@ -18,5 +18,6 @@ statement-parser --template=b3 examples/b3.csv
 
 ### Como exportar os extratos?
 
-**Avenue**: Relatórios > Avenue US > Conta de investimentos > Download do CSV BR
-**B3**: Proventos > Recebidos > Baixar > Arquivo em Excel para ser importado em planilhas > Importar no Google Planilhas > Exportar como CSV
+> **Avenue**: Relatórios > Avenue US > Conta de investimentos > Download do CSV BR
+
+> **B3**: Proventos > Recebidos > Baixar > Arquivo em Excel para ser importado em planilhas > Importar no Google Planilhas > Exportar como CSV
