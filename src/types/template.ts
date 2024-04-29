@@ -1,5 +1,5 @@
 type SearchAndReplace = {
-  search: string;
+  search: string | RegExp;
   replace: string;
 };
 

@@ -15,7 +15,7 @@ const type: Template["type"] = "?";
 
 export const avenue: Template = {
   columns: Object.values(Columns),
-  currency: "Dólar",
+  currency,
   outputColumns: [
     `$<${Columns.dataOperacao}>`,
     `$<${Columns.ativo}>`,
@@ -24,7 +24,7 @@ export const avenue: Template = {
     currency,
     `$<${Columns.valor}>`,
   ],
-  type: "?",
+  type,
   valuesToRemove: [
     "Câmbio Padrão",
     "Compra de",
@@ -36,15 +36,15 @@ export const avenue: Template = {
     { search: "Dividendos", replace: "Dividendos;" },
 
     // remove espaços
-    { search: "\\s+", replace: "" },
+    { search: /\s+/, replace: "" },
 
     // remove asteriscos do nome das ADRs
-    { search: "\\*+", replace: "" },
+    { search: /\*+/, replace: "" },
 
     // extrai o código do ativo
-    { search: "([A-Z]+)\\.[A-Z&-]+", replace: "$1" },
+    { search: /([A-Z]+)\.[A-Z&-]+/, replace: "$1" },
 
     // troca todos os pontos por vírgula
-    { search: "\\.", replace: "," },
+    { search: /\./, replace: "," },
   ],
 };

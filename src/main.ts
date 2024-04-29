@@ -9,6 +9,8 @@ import { getArgs } from "./args";
     const { template, filePath } = getArgs();
     const fileContent = await fs.readFile(filePath, { encoding: "utf8" });
     const output = new Parser(fileContent, templates[template])
+      .standardizeFile()
+      .generateRows()
       .removeHeader()
       .removeRows()
       .replaceValues()

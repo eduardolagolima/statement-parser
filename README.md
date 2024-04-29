@@ -1,6 +1,6 @@
 # statement-parser
 
-CLI para fazer o parse dos extratos da Avenue.
+CLI para extrair os proventos dos extratos da Avenue e B3.
 
 ### Como instalar?
 
@@ -13,8 +13,10 @@ npm i -g .
 
 ```sh
 statement-parser --template=avenue examples/avenue.csv
+statement-parser --template=b3 examples/b3.csv
 ```
 
 ### Como exportar os extratos?
 
 **Avenue**: Relatórios > Avenue US > Conta de investimentos > Download do CSV BR
+**B3**: Proventos > Recebidos > Baixar > Arquivo em Excel para ser importado em planilhas > Importar no Google Planilhas > Exportar como CSV
