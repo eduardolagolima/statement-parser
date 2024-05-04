@@ -10,21 +10,14 @@ enum InputColumns {
   valorLiquido = "valorLiquido",
 }
 
-const currency: Template["currency"] = "Real";
-const type: Template["type"] = "?";
-
 export const b3: Template = {
-  currency,
   inputColumns: Object.values(InputColumns),
   outputColumns: [
     `$<${InputColumns.dataPagamento}>`,
     `$<${InputColumns.ativo}>`,
     `$<${InputColumns.evento}>`,
-    type,
-    currency,
     `$<${InputColumns.valorLiquido}>`,
   ],
-  type,
   valuesToRemove: [
     // Linhas do totalizador
     ";;;;;;",
