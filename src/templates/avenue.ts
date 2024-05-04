@@ -10,21 +10,14 @@ enum InputColumns {
   saldoFinal = "saldoFinal",
 }
 
-const currency: Template["currency"] = "Dólar";
-const type: Template["type"] = "?";
-
 export const avenue: Template = {
-  currency,
   inputColumns: Object.values(InputColumns),
   outputColumns: [
     `$<${InputColumns.dataOperacao}>`,
     `$<${InputColumns.ativo}>`,
     `$<${InputColumns.evento}>`,
-    type,
-    currency,
     `$<${InputColumns.valor}>`,
   ],
-  type,
   valuesToRemove: [
     "Câmbio Padrão",
     "Compra de",
