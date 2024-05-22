@@ -4,6 +4,7 @@ type SearchAndReplace = {
 };
 
 export type Template = {
+  expectedHeader: string;
   inputColumns: string[];
   outputColumns: string[];
   valuesToRemove: string[];

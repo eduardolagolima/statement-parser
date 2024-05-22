@@ -11,12 +11,14 @@ enum InputColumns {
 }
 
 export const b3: Template = {
+  expectedHeader:
+    "Produto,Pagamento,Tipo de Evento,Instituição,Quantidade,Preço unitário,Valor líquido",
   inputColumns: Object.values(InputColumns),
   outputColumns: [
-    `$<${InputColumns.dataPagamento}>`,
-    `$<${InputColumns.ativo}>`,
-    `$<${InputColumns.evento}>`,
-    `$<${InputColumns.valorLiquido}>`,
+    InputColumns.dataPagamento,
+    InputColumns.ativo,
+    InputColumns.evento,
+    InputColumns.valorLiquido,
   ],
   valuesToRemove: [
     // Linhas do totalizador
@@ -28,13 +30,7 @@ export const b3: Template = {
     { search: /Dividendo/, replace: "Dividendos" },
     { search: /Rendimento/, replace: "Rendimentos" },
 
-    // remove espaços
-    { search: /\s+/, replace: "" },
-
     // extrai o código do ativo
     { search: /([A-Z\d]{4}\d{1,2})[^;]+/, replace: "$1" },
-
-    // troca todos os pontos por vírgula
-    { search: /\./, replace: "," },
   ],
 };

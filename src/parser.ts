@@ -1,29 +1,46 @@
-import { Template } from "./types/template";
 import { EOL } from "node:os";
+import { Template } from "./types/template";
 
 export class Parser {
-  private rows: string[] = [];
-  private removedRows: string[] = [];
+  private fileContent: string;
+  private template: Template;
+  private rows: string[];
+  private removedRows: string[];
 
-  public constructor(private fileContent: string, private template: Template) {}
+  public constructor(fileContent: string, template: Template) {
+    this.fileContent = fileContent.trim();
+    this.template = template;
+    this.rows = [];
+    this.removedRows = [];
+  }
+
+  public validateFile() {
+    if (!this.fileContent.includes(this.template.expectedHeader)) {
+      throw new Error(
+        "O cabeçalho do arquivo é inválido para o template informado"
+      );
+    }
+
+    if (this.fileContent.includes(`"`)) {
+      throw new Error("O arquivo contém aspas duplas e isso não é permitido");
+    }
+
+    return this;
+  }
 
   public standardizeFile() {
     this.fileContent = this.fileContent
-      .trim()
       // troca todas as vírgulas por ponto e vírgula
       .replace(/,/g, ";")
-      // remove a formatação dos valores
-      .replace(/R\$/g, "")
+
       // troca tudo que tiver mais de 1 espaço para apenas 1 espaço
-      .replace(/ {2,}/g, " ")
-      // remove pontos e vírgula dentro de aspas duplas, também remove as aspas duplas
-      .replace(/".+"/g, (match) => match.replace(/"|;/g, ""));
+      .replace(/ {2,}/g, " ");
 
     return this;
   }
 
   public generateRows() {
-    this.rows = this.fileContent.split(EOL);
+    this.rows = this.fileContent.split(/\r?\n/);
 
     return this;
   }
@@ -51,8 +68,21 @@ export class Parser {
   }
 
   public replaceValues() {
+    const valuesToReplace = [
+      ...this.template.valuesToReplace,
+
+      // remove espaços
+      { search: /\s+/, replace: "" },
+
+      // troca todos os pontos por vírgula
+      { search: /\./, replace: "," },
+
+      // remove a formatação dos valores
+      { search: /R\$/g, replace: "" },
+    ];
+
     this.rows = this.rows.map((row) => {
-      this.template.valuesToReplace.forEach(({ search, replace }) => {
+      valuesToReplace.forEach(({ search, replace }) => {
         row = row.replace(new RegExp(search, "g"), replace);
       });
 
@@ -71,7 +101,7 @@ export class Parser {
 
     const replace = this.template.outputColumns
       .reduce<string[]>((replace, outputColumn) => {
-        return [...replace, outputColumn];
+        return [...replace, `$<${outputColumn}>`];
       }, [])
       .join(";");
 
