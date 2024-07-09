@@ -25,6 +25,7 @@ export const avenue: Template = {
     "Compra de",
     "Estorno Impostos sobre Dividendos",
     "ADR Taxa",
+    "AJUSTE",
   ],
   valuesToReplace: [
     // corrige nomenclaturas
