@@ -12,7 +12,7 @@ enum InputColumns {
 
 export const avenue: Template = {
   expectedHeader:
-    "Data;Hora;Liquidação;Descrição;Valor (U$);Saldo da conta (U$)",
+    "Data,Hora,Liquidação,Descrição,Valor (U$),Saldo da conta (U$)",
   inputColumns: Object.values(InputColumns),
   outputColumns: [
     InputColumns.dataOperacao,
