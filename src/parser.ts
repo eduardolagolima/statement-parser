@@ -2,20 +2,22 @@ import { EOL } from "node:os";
 import { Template } from "./types/template";
 
 export class Parser {
-  private fileContent: string;
+  private initialFileContent: string;
+  private standardizedFileContent: string;
   private template: Template;
   private rows: string[];
   private removedRows: string[];
 
   public constructor(fileContent: string, template: Template) {
-    this.fileContent = fileContent.trim();
+    this.initialFileContent = fileContent.trim();
+    this.standardizedFileContent = "";
     this.template = template;
     this.rows = [];
     this.removedRows = [];
   }
 
   public validateFile() {
-    if (!this.fileContent.includes(this.template.expectedHeader)) {
+    if (!this.initialFileContent.includes(this.template.expectedHeader)) {
       throw new Error(
         "O cabeçalho do arquivo é inválido para o template informado"
       );
@@ -25,7 +27,7 @@ export class Parser {
   }
 
   public standardizeFile() {
-    this.fileContent = this.fileContent
+    this.standardizedFileContent = this.initialFileContent
       .replace(/"[^"]*"/g, (match) =>
         match
           // troca todas as vírgulas dentro de aspas duplas por ponto
@@ -45,7 +47,7 @@ export class Parser {
   }
 
   public generateRows() {
-    this.rows = this.fileContent.split(/\r?\n/);
+    this.rows = this.standardizedFileContent.split(/\r?\n/);
 
     return this;
   }
@@ -118,7 +120,7 @@ export class Parser {
   }
 
   public parse() {
-    const initialRowsAmount = this.fileContent.split(EOL).length;
+    const initialRowsAmount = this.initialFileContent.split(EOL).length;
     const removedRowsAmount = this.removedRows.length;
     const consideredRowsAmount = this.rows.length;
     const balanceAmount =
@@ -127,7 +129,7 @@ export class Parser {
     return `
 Entrada:
 
-${this.fileContent}
+${this.initialFileContent}
 
 Linhas removidas:
 
