@@ -21,15 +21,20 @@ export class Parser {
       );
     }
 
-    if (this.fileContent.includes(`"`)) {
-      throw new Error("O arquivo contém aspas duplas e isso não é permitido");
-    }
-
     return this;
   }
 
   public standardizeFile() {
     this.fileContent = this.fileContent
+      .replace(/"[^"]*"/g, (match) =>
+        match
+          // troca todas as vírgulas dentro de aspas duplas por ponto
+          .replace(/,/g, ".")
+
+          // remove as aspas duplas
+          .replace(/"/g, "")
+      )
+
       // troca todas as vírgulas por ponto e vírgula
       .replace(/,/g, ";")
 
