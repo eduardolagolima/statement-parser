@@ -5,15 +5,19 @@
   "author": "eduardolagolima@gmail.com",
   "license": "ISC",
   "scripts": {
-    "biome:check": "npx @biomejs/biome check --write"
+    "biome:check": "npx @biomejs/biome check --write",
+    "prepare": "husky"
   },
   "bin": {
     "statement-parser": "src/cli.js"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@types/minimist": "^1.2.5",
     "@types/node": "^22.10.10",
+    "husky": "^9.1.7",
     "minimist": "^1.2.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
