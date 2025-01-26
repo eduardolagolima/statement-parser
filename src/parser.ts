@@ -1,5 +1,5 @@
 import { EOL } from "node:os";
-import { Template } from "./types/template";
+import type { Template } from "./types/template";
 
 export class Parser {
   private initialFileContent: string;
@@ -19,7 +19,7 @@ export class Parser {
   public validateFile() {
     if (!this.initialFileContent.includes(this.template.expectedHeader)) {
       throw new Error(
-        "O cabeçalho do arquivo é inválido para o template informado"
+        "O cabeçalho do arquivo é inválido para o template informado",
       );
     }
 
@@ -34,7 +34,7 @@ export class Parser {
           .replace(/,/g, ".")
 
           // remove as aspas duplas
-          .replace(/"/g, "")
+          .replace(/"/g, ""),
       )
 
       // troca todas as vírgulas por ponto e vírgula
@@ -89,11 +89,13 @@ export class Parser {
     ];
 
     this.rows = this.rows.map((row) => {
-      valuesToReplace.forEach(({ search, replace }) => {
-        row = row.replace(new RegExp(search, "g"), replace);
-      });
+      let modifiedRow = row;
 
-      return row;
+      for (const { search, replace } of valuesToReplace) {
+        modifiedRow = modifiedRow.replace(new RegExp(search, "g"), replace);
+      }
+
+      return modifiedRow;
     });
 
     return this;
@@ -102,13 +104,17 @@ export class Parser {
   public reorderColumns() {
     const search = this.template.inputColumns
       .reduce<string[]>((search, inputColumn) => {
-        return [...search, `(?<${inputColumn}>.+)`];
+        search.push(`(?<${inputColumn}>.+)`);
+
+        return search;
       }, [])
       .join(";");
 
     const replace = this.template.outputColumns
       .reduce<string[]>((replace, outputColumn) => {
-        return [...replace, `$<${outputColumn}>`];
+        replace.push(`$<${outputColumn}>`);
+
+        return replace;
       }, [])
       .join(";");
 
@@ -135,7 +141,7 @@ Linhas removidas:
 
 ${this.removedRows.join(EOL)}
 
-Linhas consideradas:
+Saída:
 
 ${this.rows.join(EOL)}
 
@@ -143,7 +149,7 @@ Resumo das quantidades de linhas:
 
 Entrada: ${initialRowsAmount}
 Linhas removidas: ${removedRowsAmount}
-Linhas consideradas: ${consideredRowsAmount}
+Saída: ${consideredRowsAmount}
 Conferência: ${balanceAmount}
     `;
   }
