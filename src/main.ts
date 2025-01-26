@@ -1,8 +1,8 @@
 import * as fs from "node:fs/promises";
 
-import { templates } from "./templates";
-import { Parser } from "./parser";
 import { getArgs } from "./args";
+import { Parser } from "./parser";
+import { templates } from "./templates";
 
 (async function main() {
   try {

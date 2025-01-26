@@ -1,4 +1,4 @@
-import { Template } from "../types/template";
+import type { Template } from "../types/template";
 
 enum InputColumns {
   dataOperacao = "dataOperacao",
