@@ -1,38 +1,33 @@
 import type { Template } from "../types/template";
 
 enum InputColumns {
-  dataOperacao = "dataOperacao",
-  hora = "hora",
+  dataTransacao = "dataTransacao",
   dataLiquidacao = "dataLiquidacao",
   evento = "evento",
   ativo = "ativo",
   valor = "valor",
-  saldoFinal = "saldoFinal",
+  saldo = "saldo",
 }
 
 export const avenue: Template = {
-  expectedHeader:
-    "Data,Hora,Liquidação,Descrição,Valor (U$),Saldo da conta (U$)",
+  expectedHeader: "Data transação,Data liquidação,Descrição,Valor,Saldo",
   inputColumns: Object.values(InputColumns),
   outputColumns: [
-    InputColumns.dataOperacao,
+    InputColumns.dataTransacao,
     InputColumns.ativo,
     InputColumns.evento,
     InputColumns.valor,
   ],
   valuesToRemove: [
-    "Câmbio Padrão",
-    "Compra de",
-    "Estorno Impostos sobre Dividendos",
-    "ADR Taxa",
-    "AJUSTE",
+    "Câmbio de real para dólar",
+    "Compra",
+    "Estorno de imposto sobre dividendo",
+    "Imposto sobre ADR",
+    "Ajuste Campanha",
   ],
   valuesToReplace: [
     // corrige nomenclaturas
-    { search: /Retenção Impostos sobre Dividendos/, replace: "Impostos;" },
-    { search: /Dividendos/, replace: "Dividendos;" },
-
-    // extrai o código do ativo
-    { search: /([A-Z]+)\.[^;]+/, replace: "$1" },
+    { search: /Imposto sobre dividendo de /, replace: "Impostos;" },
+    { search: /Dividendos de /, replace: "Dividendos;" },
   ],
 };

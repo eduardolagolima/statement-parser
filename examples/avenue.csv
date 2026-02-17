@@ -1,5 +1,5 @@
-Data,Hora,Liquidação,Descrição,Valor (U$),Saldo da conta (U$)
-00/00/0000,00:00,00/00/0000,Câmbio Padrão : R$0.00,0.00,0.00
-00/00/0000,00:00,00/00/0000,Compra de 0 ABC a $ 0.00,-0.00,0.00
-00/00/0000,00:00,00/00/0000,Dividendos ABC. COMPANY ABC INC,0.00,0.00
-00/00/0000,00:00,00/00/0000,Retenção Impostos sobre Dividendos ABC. COMPANY ABC INC,-0.00,0.00
+Data transação,Data liquidação,Descrição,Valor,Saldo
+00/00/0000,00/00/0000,Câmbio de real para dólar,0.00,0.00
+00/00/0000,00/00/0000,"Compra de 0 ABC a $ 0,00 cada",-0.00,0.00
+00/00/0000,00/00/0000,Dividendos de ABC,0.00,0.00
+00/00/0000,00/00/0000,Imposto sobre dividendo de ABC,-0.00,0.00
