@@ -4,18 +4,12 @@
   "main": "src/main.ts",
   "author": "eduardolagolima@gmail.com",
   "license": "ISC",
-  "scripts": {
-    "prepare": "husky"
-  },
   "bin": {
     "statement-parser": "src/cli.js"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.0.1",
-    "@commitlint/config-conventional": "^21.0.1",
     "@types/minimist": "^1.2.5",
     "@types/node": "^25.7.0",
-    "husky": "^9.1.7",
     "minimist": "^1.2.8",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
