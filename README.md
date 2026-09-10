@@ -5,8 +5,7 @@ CLI para extrair os proventos dos extratos da Avenue e B3.
 ### Como instalar?
 
 ```sh
-npm install
-npm i -g .
+npm link
 ```
 
 ### Exemplos de como usar:
