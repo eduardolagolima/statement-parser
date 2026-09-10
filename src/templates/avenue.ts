@@ -22,7 +22,7 @@ export const avenue: Template = {
     "Câmbio de real para dólar",
     "Compra",
     "Estorno de imposto sobre dividendo",
-    "Imposto sobre ADR",
+    "Taxa sobre ADR",
     "Ajuste Campanha",
   ],
   valuesToReplace: [
